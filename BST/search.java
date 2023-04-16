@@ -42,32 +42,41 @@ class Bst {
     return root;
   }
 
-  public void postorder(Node root) {
+  public void inorder(Node root) {
     if(root == null) {
-      return;    
+        return;
+    }
+    Stack<Node> stack = new Stack<>();
+
+    Node temp = root;
+    while(temp != null || !stack.isEmpty()) {
+      while(temp != null) {
+        stack.push(temp);
+        temp = temp.left;
+      }
+      temp = stack.pop();
+      System.out.print(temp.data+" ");
+      temp = temp.right;
+    }
+  }
+
+  public void search(int data) {
+    if(root == null) {
+      System.out.print("Does not exists");
+      return;
     }
     Node curr = root;
-    Node temp = null;
-    Stack<Node> st = new Stack<>();
-    while(curr != null || !st.isEmpty()) {
-      while(curr != null) {
-        // System.out.println(curr.data);
-        st.push(curr);
+    while(curr != null) {
+      if(curr.data == data) {
+        System.out.print("Exists");
+        return;
+      } else if(curr.data > data) {
         curr = curr.left;
-      }
-      temp = st.peek().right;
-      if(temp != null) {
-        curr = temp;
       } else {
-        temp = st.pop();
-        System.out.print(temp.data + " ");
-        while(!st.isEmpty() && st.peek().right == temp) {
-          temp = st.pop();
-          System.out.print(temp.data+ " ");
-        }
-        curr = null;
+        curr = curr.right;
       }
     }
+    System.out.print("notexists");
   }
 
   public static void main(String[] args) {
@@ -76,6 +85,10 @@ class Bst {
       b.insert(20);
       b.insert(30);
       b.insert(5);
-      b.postorder(b.root);
+      b.insert(1);
+      b.insert(50);
+      b.insert(25);
+      b.inorder(b.root);
+      b.search(599);
   }
 }
