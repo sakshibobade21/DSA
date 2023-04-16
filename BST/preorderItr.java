@@ -42,23 +42,21 @@ class Bst {
     return root;
   }
 
-  public void inorder(Node root) {
+  public void preorder(Node root) {
     if(root == null) {
-        return;
+      return;
     }
-    Stack<Node> stack = new Stack<>();
-
+    Stack<Node> st = new Stack<>();
     Node temp = root;
-    while(temp != null || !stack.isEmpty()) {
+    while(temp != null || !st.isEmpty()) {
       while(temp != null) {
-        stack.push(temp);
+        System.out.print(temp.data+" ");
+        st.push(temp);
         temp = temp.left;
       }
-      temp = stack.pop();
-      System.out.print(temp.data+" ");
+      temp = st.pop();
       temp = temp.right;
     }
-
   }
 
   public static void main(String[] args) {
@@ -67,6 +65,6 @@ class Bst {
       b.insert(20);
       b.insert(30);
       b.insert(5);
-      b.inorder(b.root);
+      b.preorder(b.root);
   }
 }
